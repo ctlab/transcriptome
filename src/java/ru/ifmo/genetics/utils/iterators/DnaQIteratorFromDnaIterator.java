@@ -1,0 +1,33 @@
+package ru.ifmo.genetics.utils.iterators;
+
+import ru.ifmo.genetics.dna.Dna;
+import ru.ifmo.genetics.dna.DnaQ;
+
+public class DnaQIteratorFromDnaIterator implements ProgressableIterator<DnaQ> {
+    private ProgressableIterator<Dna> dnaIterator;
+    private int phred;
+
+    public DnaQIteratorFromDnaIterator(ProgressableIterator<Dna> dnaIterator, int phred) {
+        this.dnaIterator = dnaIterator;
+        this.phred = phred;
+    }
+
+    @Override
+    public boolean hasNext() {
+        return dnaIterator.hasNext();
+    }
+
+    @Override
+    public DnaQ next() {
+        return new DnaQ(dnaIterator.next().toString(), phred);
+    }
+
+    @Override
+    public void remove() {
+    }
+
+    @Override
+    public double progress() {
+        return dnaIterator.progress();
+    }
+}
